@@ -31,7 +31,7 @@ jobs:
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
     - name: Copy .env
-      run: php -r "copy('src/Framework/.env.example', 'src/Framework/.env');"
+      run: php -r "copy('src/Framework/.env.testing', 'src/Framework/.env');"
       
     - name: Run migrations
       run: php artisan migrate --no-interaction --force

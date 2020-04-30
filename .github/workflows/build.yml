@@ -33,20 +33,9 @@ jobs:
 
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-
-    - name: Generate key
-      run: php artisan key:generate
       
     - name: Run migrations
       run: php artisan migrate
-
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
-
-    - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
         
     - name: Execute tests
       run: vendor/bin/phpunit

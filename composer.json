@@ -16,8 +16,8 @@
     },
     "autoload": {
         "classmap": [
-            "database/seeds",
-            "database/factories"
+            "src/Framework/database/seeds",
+            "src/Framework/database/factories"
         ],
         "psr-4": {
             "App\\": "src/"

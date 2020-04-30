@@ -1,21 +1,34 @@
-# Lumen PHP Framework
+# Lean Logger
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+The 0% fat, open source lifestyle tracker!
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+## What is Lean Logger?
 
-## Official Documentation
+Lean Logger is a mobile application for people who would like to track their workouts and
+food consumption.
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+## Is Lean Logger for me?
 
-## Security Vulnerabilities
+It depends. Here's why:
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+We're aware there's a plethora of other apps that track your food and workouts; we've
+used A LOT of them. 
 
-## License
+We find that many of them are bloated with unnecessary features that distract you from your 
+true goals and end up being too complicated to use that it becomes a chore.
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Here's what we DON'T do:
+
+* We don't offer you complicated sugar, salt & macro-nutrient tracking by
+scanning the barcodes of your cucumbers and pickles. 
+* We don't offer you a workout plan that will get you a 6-minute 6-pack
+
+### So, what do we offer?
+
+What we offer is simple - an easy way to log your workouts and your food so you can
+your own records and hold your self accountable.
+
+Had Grandmas Spaghetti Bolognese last night? Just add it! Nobody else will ever see it,
+it's your own little library of food. Did you do 20 reps of the "scary machine by the
+air conditioning unit"? Hey, if that makes sense to you, it's not harming anyone else, add it!
+

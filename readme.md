@@ -1,5 +1,7 @@
 # Lean Logger
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Lean-Logger/api/Laravel?label=Tests)
+
 The 0% fat, open source lifestyle tracker!
 
 ## What is Lean Logger?

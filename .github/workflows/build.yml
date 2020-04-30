@@ -34,7 +34,7 @@ jobs:
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       
     - name: Run migrations
-      run: php artisan migrate
+      run: php artisan migrate --no-interaction
         
     - name: Execute tests
       run: vendor/bin/phpunit

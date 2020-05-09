@@ -12,7 +12,7 @@
 */
 
 $router->group(['prefix' => 'api', 'namespace' => 'App\Presentation\Http\Controllers'], function () use ($router) {
-//    $router->post('exercises', ['as' => 'add-exercise-to-library', 'uses' => 'AddExerciseToLibraryController@execute']);
+    $router->post('exercises', ['as' => 'add-exercise-to-library', 'uses' => 'AddExerciseToLibraryController@execute']);
 //    $router->delete('exercises/{uuid}', ['as' => 'remove-exercise-from-library', 'uses' => 'RemoveExerciseFromLibraryController@execute']);
 //
 //    $router->get('workouts', ['as' => 'get-workouts', 'uses' => 'GetWorkoutsController@execute']);

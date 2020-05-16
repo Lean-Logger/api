@@ -72,5 +72,12 @@ final class MysqlExerciseRepository extends MySqlAbstractRepository implements E
         return $row ? $this->factory->createFromDatabaseRow((array) $row) : null;
     }
 
+    public function delete(Exercise $exercise): void
+    {
+        $this->queryBuilder
+            ->table(self::TABLE_NAME)
+            ->delete($exercise->getId())
+        ;
+    }
 
 }

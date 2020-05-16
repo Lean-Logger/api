@@ -16,11 +16,11 @@ $router->group(['prefix' => 'api', 'namespace' => 'App\Presentation\Http\Control
     $router->group(['middleware' => ['logintoken']], function() use ($router) {
         $router->post('exercises', ['as' => 'add-exercise-to-library', 'uses' => 'AddExerciseToLibraryController@execute']);
         $router->put('exercises/{id}', ['as' => 'edit-exercise', 'uses' => 'EditExerciseController@execute']);
+        $router->delete('exercises/{id}', ['as' => 'delete-exercise-from-library', 'uses' => 'DeleteExerciseFromLibraryController@execute']);
 
         $router->post('logout', ['as' => 'logout-user', 'uses' => 'LogoutUserController@execute']);
     });
 
-//    $router->delete('exercises/{uuid}', ['as' => 'remove-exercise-from-library', 'uses' => 'RemoveExerciseFromLibraryController@execute']);
 //
 //    $router->get('workouts', ['as' => 'get-workouts', 'uses' => 'GetWorkoutsController@execute']);
 //    $router->post('workouts', ['as' => 'start-workout', 'uses' => 'StartWorkoutController@execute']);

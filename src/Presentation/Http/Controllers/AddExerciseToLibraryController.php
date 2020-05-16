@@ -26,7 +26,7 @@ use Illuminate\Http\Request;
  *          )
  *     ),
  *
- *     @OA\Response(response=201, description="Success"),
+ *     @OA\Response(response=201, description="Success", @OA\JsonContent(ref="#/components/schemas/AddExerciseToLibraryResponse")),
  *     @OA\Response(response=404, ref="#/components/responses/NotFound"),
  *     @OA\Response(response=422, ref="#/components/responses/BadRequest"),
  *     @OA\Response(response=500, ref="#/components/responses/ServerError")

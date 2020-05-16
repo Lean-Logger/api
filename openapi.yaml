@@ -32,6 +32,10 @@ paths:
       responses:
         '201':
           description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddExerciseToLibraryResponse'
         '404':
           $ref: '#/components/responses/NotFound'
         '422':

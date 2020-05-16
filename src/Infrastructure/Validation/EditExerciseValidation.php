@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Validation;
 
-final class AddExerciseToLibraryValidation extends AbstractValidation
+final class EditExerciseValidation extends AbstractValidation
 {
     protected function getValidationRules(): array
     {

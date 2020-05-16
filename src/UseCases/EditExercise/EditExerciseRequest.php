@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\AddExerciseToLibrary;
+namespace App\UseCases\EditExercise;
 
 /**
  * @OA\Schema(
- *     schema="AddExerciseToLibraryRequest",
- *     title="Add exercise to library request",
+ *     schema="EditExerciseRequest",
+ *     title="Edit an existing exercise",
  *     required={"name", "type"},
  *     properties={
  *          @OA\Property(property="name", type="string", example="Bicep Curl Machine"),
@@ -16,8 +16,10 @@ namespace App\UseCases\AddExerciseToLibrary;
  *     }
  * )
  */
-final class AddExerciseToLibraryRequest
+final class EditExerciseRequest
 {
+    private $exerciseId;
+
     private $userId;
 
     private $name;
@@ -26,12 +28,18 @@ final class AddExerciseToLibraryRequest
 
     private $type;
 
-    public function __construct($userId, $name, $description, $type)
+    public function __construct($exerciseId, $userId, $name, $description, $type)
     {
+        $this->exerciseId = $exerciseId;
         $this->userId = $userId;
         $this->name = $name;
         $this->description = $description;
         $this->type = $type;
+    }
+
+    public function getExerciseId()
+    {
+        return $this->exerciseId;
     }
 
     public function getUserId()

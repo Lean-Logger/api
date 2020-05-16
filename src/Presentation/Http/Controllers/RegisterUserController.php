@@ -11,6 +11,27 @@ use App\UseCases\RegisterUser\RegisterUserUseCase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Post(
+ *     path="/api/register",
+ *     operationId="register",
+ *     summary="Register a new user",
+ *     tags={"Authentication"},
+ *
+ *     @OA\RequestBody(
+ *      required=true,
+ *          @OA\MediaType(
+ *              mediaType="application/json",
+ *              @OA\Schema(ref="#/components/schemas/RegisterUserRequest")
+ *          )
+ *     ),
+ *
+ *     @OA\Response(response=201, description="Success", @OA\JsonContent(ref="#/components/schemas/RegisterUserResponse")),
+ *     @OA\Response(response=404, ref="#/components/responses/NotFound"),
+ *     @OA\Response(response=422, ref="#/components/responses/BadRequest"),
+ *     @OA\Response(response=500, ref="#/components/responses/ServerError")
+ * )
+ */
 class RegisterUserController extends Controller
 {
     private $useCase;

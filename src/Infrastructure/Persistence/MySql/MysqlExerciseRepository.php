@@ -46,4 +46,31 @@ final class MysqlExerciseRepository extends MySqlAbstractRepository implements E
         return $this->factory->createFromDatabaseRow($row);
     }
 
+    public function update(Exercise $exercise, string $name, ?string $description, string $type): void
+    {
+        $row = [
+            'name' => $name,
+            'description' => $description,
+            'type' => $type,
+            'updated_at' => (new Carbon())->format('Y-m-d H:i:s'),
+        ];
+
+        $this->queryBuilder
+            ->table(self::TABLE_NAME)
+            ->where('id', '=', $exercise->getId())
+            ->update($row)
+        ;
+    }
+
+    public function findOneById(int $id): ?Exercise
+    {
+        $row = $this->queryBuilder
+            ->table(self::TABLE_NAME)
+            ->find($id)
+        ;
+
+        return $row ? $this->factory->createFromDatabaseRow((array) $row) : null;
+    }
+
+
 }

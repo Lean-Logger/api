@@ -9,4 +9,6 @@ interface LoginTokenRepositoryInterface
     public function create(int $userId, string $token): void;
 
     public function deleteAllForUser(int $userId): void;
+
+    public function findOneByToken(string $token): ?LoginToken;
 }

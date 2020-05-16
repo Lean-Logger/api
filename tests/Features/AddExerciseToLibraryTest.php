@@ -1,33 +1,19 @@
 <?php
 
-use App\Domain\User\UserRepositoryInterface;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-class AddExerciseToLibraryTest extends TestCase
+class AddExerciseToLibraryTest extends ApiTestCase
 {
     use DatabaseTransactions;
 
-    /** @var TestUserData  */
-    private $userData;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->userData = app(TestUserData::class);
-    }
-
     public function testNewExerciseCanBeAddedToLibrarySuccessfully()
     {
-        $jax = $this->userData->createUserJax();
-
         $data = [
-            'user_id' => $jax->getId(),
             'name' => TestExerciseData::EXERCISE_NAME,
             'type' => 'weighted_reps',
         ];
 
-        $this->json('POST', route('add-exercise-to-library'), $data)
+        $this->json('POST', route('add-exercise-to-library'), $data, [self::AUTH_HEADER_NAME => self::JAX_LOGIN_TOKEN])
             ->seeStatusCode(201)
         ;
     }
@@ -38,9 +24,9 @@ class AddExerciseToLibraryTest extends TestCase
             'type' => 'watermelon',
         ];
 
-        $this->json('POST', route('add-exercise-to-library'), $data)
+        $this->json('POST', route('add-exercise-to-library'), $data, [self::AUTH_HEADER_NAME => self::JAX_LOGIN_TOKEN])
             ->seeJsonStructure([
-                'errors' => ['user_id', 'name', 'type']
+                'errors' => ['name', 'type']
             ])
             ->seeStatusCode(422)
         ;

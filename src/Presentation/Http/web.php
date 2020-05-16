@@ -12,7 +12,14 @@
 */
 
 $router->group(['prefix' => 'api', 'namespace' => 'App\Presentation\Http\Controllers'], function () use ($router) {
-    $router->post('exercises', ['as' => 'add-exercise-to-library', 'uses' => 'AddExerciseToLibraryController@execute']);
+
+    $router->group(['middleware' => ['logintoken']], function() use ($router) {
+        $router->post('exercises', ['as' => 'add-exercise-to-library', 'uses' => 'AddExerciseToLibraryController@execute']);
+        $router->put('exercises/{id}', ['as' => 'edit-exercise', 'uses' => 'EditExerciseController@execute']);
+
+        $router->post('logout', ['as' => 'logout-user', 'uses' => 'LogoutUserController@execute']);
+    });
+
 //    $router->delete('exercises/{uuid}', ['as' => 'remove-exercise-from-library', 'uses' => 'RemoveExerciseFromLibraryController@execute']);
 //
 //    $router->get('workouts', ['as' => 'get-workouts', 'uses' => 'GetWorkoutsController@execute']);
@@ -21,7 +28,7 @@ $router->group(['prefix' => 'api', 'namespace' => 'App\Presentation\Http\Control
 //    $router->put('workouts/{uuid}/finish', ['as' => 'finish-workout', 'uses' => 'FinishWorkoutController@execute']);
 
     $router->post('login', ['as' => 'login-user', 'uses' => 'LoginUserController@execute']);
-    $router->post('logout', ['as' => 'logout-user', 'uses' => 'LogoutUserController@execute']);
+
     $router->post('register', ['as' => 'register-user', 'uses' => 'RegisterUserController@execute']);
 
     $router->post('request-password-reset', ['as' => 'request-password-reset', 'uses' => 'RequestPasswordResetController@execute']);

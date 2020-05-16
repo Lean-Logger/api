@@ -20,14 +20,6 @@ use Illuminate\Http\Request;
  *     summary="Invalidate all login tokens for a user",
  *     tags={"Authentication"},
  *
- *     @OA\RequestBody(
- *      required=true,
- *          @OA\MediaType(
- *              mediaType="application/json",
- *              @OA\Schema(ref="#/components/schemas/LogoutUserRequest")
- *          )
- *     ),
- *
  *     @OA\Response(response=200, description="Success"),
  *     @OA\Response(response=404, ref="#/components/responses/NotFound"),
  *     @OA\Response(response=422, ref="#/components/responses/BadRequest"),
@@ -46,7 +38,7 @@ class LogoutUserController extends Controller
     final public function execute(Request $request): JsonResponse
     {
         $request = new LogoutUserRequest(
-            $request->get('user_id')
+            $request->user()->getId()
         );
 
         try {

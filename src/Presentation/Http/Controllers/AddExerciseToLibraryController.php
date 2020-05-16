@@ -44,7 +44,7 @@ class AddExerciseToLibraryController extends Controller
     final public function execute(Request $request): JsonResponse
     {
         $request = new AddExerciseToLibraryRequest(
-            $request->get('user_id'),
+            $request->user()->getId(),
             $request->get('name'),
             $request->get('description'),
             $request->get('type')

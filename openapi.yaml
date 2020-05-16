@@ -1,0 +1,368 @@
+openapi: 3.0.0
+info:
+  title: 'Lean Logger API'
+  version: '1.0'
+paths:
+  /api/exercises:
+    post:
+      tags:
+        - Exercises
+      summary: 'Add a new exercise to the users library'
+      operationId: addExerciseToLibrary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddExerciseToLibraryRequest'
+      responses:
+        '201':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  '/api/exercises/{exerciseId}':
+    put:
+      tags:
+        - Exercises
+      summary: 'Exit an existing exercise'
+      operationId: editExercise
+      parameters:
+        -
+          name: exerciseId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditExerciseRequest'
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/login:
+    post:
+      tags:
+        - Authentication
+      summary: 'Exchange a valid username/password combination for a login token'
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginUserResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/logout:
+    post:
+      tags:
+        - Authentication
+      summary: 'Invalidate all login tokens for a user'
+      operationId: logout
+      responses:
+        '200':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/register:
+    post:
+      tags:
+        - Authentication
+      summary: 'Register a new user'
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterUserResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/request-password-reset:
+    post:
+      tags:
+        - Authentication
+      summary: 'Trigger a password reset email to be sent'
+      operationId: request-password-reset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestPasswordResetRequest'
+      responses:
+        '201':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /api/reset-password:
+    post:
+      tags:
+        - Authentication
+      summary: 'Reset a Users password'
+      operationId: reset-password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+      responses:
+        '201':
+          description: Success
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    ErrorsObject:
+      title: 'API Errors'
+      properties:
+        errors:
+          type: array
+          items:
+            required:
+              - title
+              - code
+            properties:
+              title:
+                description: 'Error message'
+                type: string
+              code:
+                description: 'Error code'
+                type: string
+                nullable: true
+              source:
+                description: 'Property path where the error occurred, if applicable'
+                type: string
+                nullable: true
+            type: object
+      type: object
+    AddExerciseToLibraryRequest:
+      title: 'Add exercise to library request'
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          example: 'Bicep Curl Machine'
+        description:
+          type: string
+          example: 'The machine near the AC unit'
+        type:
+          type: string
+          enum:
+            - weighted_reps
+            - non_weighted_reps
+            - duration
+      type: object
+    AddExerciseToLibraryResponse:
+      title: 'Add exercise to library response'
+      properties:
+        id:
+          type: number
+          format: integer
+        user_id:
+          type: number
+          format: integer
+        name:
+          type: string
+          example: 'Bicep Curl Machine'
+        description:
+          type: string
+          example: 'The machine near the AC unit'
+        type:
+          type: string
+          enum:
+            - weighted_reps
+            - non_weighted_reps
+            - duration
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      type: object
+    EditExerciseRequest:
+      title: 'Edit an existing exercise'
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          example: 'Bicep Curl Machine'
+        description:
+          type: string
+          example: 'The machine near the AC unit'
+        type:
+          type: string
+          enum:
+            - weighted_reps
+            - non_weighted_reps
+            - duration
+      type: object
+    LoginUserRequest:
+      title: 'Login Request'
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: jax@redwood.com
+        password:
+          type: string
+      type: object
+    LoginUserResponse:
+      title: 'Login User Response'
+      properties:
+        login_token:
+          type: string
+      type: object
+    LogoutUserRequest:
+      title: 'Logout Request'
+      required:
+        - user_id
+      properties:
+        user_id:
+          type: number
+      type: object
+    RegisterUserRequest:
+      title: 'Register Request'
+      required:
+        - email
+        - password
+        - opt_in
+      properties:
+        email:
+          type: string
+          format: email
+          example: jax@redwood.com
+        password:
+          type: string
+        opt_in:
+          type: integer
+          enum:
+            - 1
+            - 0
+      type: object
+    RegisterUserResponse:
+      title: 'Register User Response'
+      properties:
+        email:
+          type: string
+        opt_in:
+          type: integer
+          enum:
+            - 0
+            - 1
+        created_at:
+          type: string
+          format: date-time
+      type: object
+    RequestPasswordResetRequest:
+      title: 'Request Password Reset Request'
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+      type: object
+    ResetPasswordRequest:
+      title: 'Reset Password Request'
+      required:
+        - email
+        - code
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        code:
+          type: number
+          example: '123456'
+        password:
+          type: string
+      type: object
+  responses:
+    ServerError:
+      description: 'Unexpected Server Error'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorsObject'
+    NotFound:
+      description: 'Resource Not Found'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorsObject'
+    Unauthorized:
+      description: 'Unauthorized request or invalid credentials'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorsObject'
+    Forbidden:
+      description: 'Forbidden Request. The operation cannot be completed.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorsObject'
+    BadRequest:
+      description: 'Invalid Request Data'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorsObject'

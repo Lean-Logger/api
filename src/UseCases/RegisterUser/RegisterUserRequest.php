@@ -4,6 +4,18 @@ declare(strict_types=1);
 
 namespace App\UseCases\RegisterUser;
 
+/**
+ * @OA\Schema(
+ *     schema="RegisterUserRequest",
+ *     title="Register Request",
+ *     required={"email", "password", "opt_in"},
+ *     properties={
+ *          @OA\Property(property="email", type="string", format="email", example="jax@redwood.com"),
+ *          @OA\Property(property="password", type="string"),
+ *          @OA\Property(property="opt_in", type="integer", enum={1, 0})
+ *     }
+ * )
+ */
 final class RegisterUserRequest
 {
     private $email;

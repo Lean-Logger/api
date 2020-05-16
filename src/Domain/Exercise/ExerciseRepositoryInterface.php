@@ -12,5 +12,7 @@ interface ExerciseRepositoryInterface
 
     public function findOneById(int $id): ?Exercise;
 
+    public function findAllByUserId(int $userId): array;
+
     public function delete(Exercise $exercise): void;
 }

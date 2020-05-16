@@ -19,4 +19,11 @@ final class ExerciseFactory {
             ;
     }
 
+    /**
+     * @return Exercise[]
+     */
+    public function createMultipleFromDatabaseRows(array $data): array
+    {
+        return array_map([$this, 'createFromDatabaseRow'], $data);
+    }
 }

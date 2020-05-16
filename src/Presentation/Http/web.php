@@ -14,6 +14,7 @@
 $router->group(['prefix' => 'api', 'namespace' => 'App\Presentation\Http\Controllers'], function () use ($router) {
 
     $router->group(['middleware' => ['logintoken']], function() use ($router) {
+        $router->get('exercises', ['as' => 'get-exercise-library', 'uses' => 'GetExerciseLibraryController@execute']);
         $router->post('exercises', ['as' => 'add-exercise-to-library', 'uses' => 'AddExerciseToLibraryController@execute']);
         $router->put('exercises/{id}', ['as' => 'edit-exercise', 'uses' => 'EditExerciseController@execute']);
         $router->delete('exercises/{id}', ['as' => 'delete-exercise-from-library', 'uses' => 'DeleteExerciseFromLibraryController@execute']);

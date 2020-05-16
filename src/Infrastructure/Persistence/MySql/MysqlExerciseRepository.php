@@ -72,6 +72,20 @@ final class MysqlExerciseRepository extends MySqlAbstractRepository implements E
         return $row ? $this->factory->createFromDatabaseRow((array) $row) : null;
     }
 
+    public function findAllByUserId(int $userId): array
+    {
+        $rows = $this->queryBuilder
+            ->table(self::TABLE_NAME)
+            ->where('user_id', '=', $userId)
+            ->get()
+        ;
+
+        $results = json_decode(json_encode($rows->toArray()), true);
+
+        return $this->factory->createMultipleFromDatabaseRows($results);
+    }
+
+
     public function delete(Exercise $exercise): void
     {
         $this->queryBuilder
@@ -79,5 +93,4 @@ final class MysqlExerciseRepository extends MySqlAbstractRepository implements E
             ->delete($exercise->getId())
         ;
     }
-
 }

@@ -4,6 +4,20 @@ info:
   version: '1.0'
 paths:
   /api/exercises:
+    get:
+      tags:
+        - Exercises
+      summary: 'Fetch the authenticated users exercise library'
+      operationId: getExerciseLibrary
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetExerciseLibraryResponse'
+        '500':
+          $ref: '#/components/responses/ServerError'
     post:
       tags:
         - Exercises
@@ -269,6 +283,11 @@ components:
             - non_weighted_reps
             - duration
       type: object
+    GetExerciseLibraryResponse:
+      title: 'Get Exercise Library Response'
+      type: array
+      items:
+        $ref: '#/components/schemas/AddExerciseToLibraryResponse'
     LoginUserRequest:
       title: 'Login Request'
       required:

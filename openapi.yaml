@@ -89,6 +89,31 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/ServerError'
+  /api/foodlog:
+    post:
+      tags:
+        - Exercises
+      summary: 'Log food consumption'
+      operationId: logFoodConsumption
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogFoodConsumptionRequest'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogFoodConsumptionResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
   /api/login:
     post:
       tags:
@@ -292,6 +317,39 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/AddExerciseToLibraryResponse'
+    LogFoodConsumptionRequest:
+      title: 'Log food consumption request'
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: Pasta
+        date_time:
+          type: string
+      type: object
+    LogFoodConsumptionResponse:
+      title: 'Log food consumption response'
+      properties:
+        id:
+          type: number
+          format: integer
+        user_id:
+          type: number
+          format: integer
+        name:
+          type: string
+          example: 'Bicep Curl Machine'
+        date_time:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      type: object
     LoginUserRequest:
       title: 'Login Request'
       required:

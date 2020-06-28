@@ -3,10 +3,14 @@
 namespace App\Framework\Providers;
 
 use App\Domain\Exercise\ExerciseRepositoryInterface;
+use App\Domain\Food\FoodLogRepositoryInterface;
+use App\Domain\Food\FoodRepositoryInterface;
 use App\Domain\User\LoginTokenRepositoryInterface;
 use App\Domain\User\PasswordResetRequestRepositoryInterface;
 use App\Domain\User\UserRepositoryInterface;
 use App\Infrastructure\Persistence\MySql\MysqlExerciseRepository;
+use App\Infrastructure\Persistence\MySql\MysqlFoodLogRepository;
+use App\Infrastructure\Persistence\MySql\MysqlFoodRepository;
 use App\Infrastructure\Persistence\MySql\MySqlLoginTokenRepository;
 use App\Infrastructure\Persistence\MySql\MySqlPasswordRequestRepositoryRepository;
 use App\Infrastructure\Persistence\MySql\MySqlUserRepository;
@@ -40,6 +44,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ExerciseRepositoryInterface::class,
             MysqlExerciseRepository::class
+        );
+
+        $this->app->bind(
+            FoodRepositoryInterface::class,
+            MysqlFoodRepository::class
+        );
+
+        $this->app->bind(
+            FoodLogRepositoryInterface::class,
+            MysqlFoodLogRepository::class
         );
     }
 }

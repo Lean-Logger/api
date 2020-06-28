@@ -19,6 +19,8 @@ $router->group(['prefix' => 'api', 'namespace' => 'App\Presentation\Http\Control
         $router->put('exercises/{id}', ['as' => 'edit-exercise', 'uses' => 'EditExerciseController@execute']);
         $router->delete('exercises/{id}', ['as' => 'delete-exercise-from-library', 'uses' => 'DeleteExerciseFromLibraryController@execute']);
 
+        $router->post('foodlog', ['as' => 'log-food-consumption', 'uses' => 'LogFoodConsumptionController@execute']);
+
         $router->post('logout', ['as' => 'logout-user', 'uses' => 'LogoutUserController@execute']);
     });
 

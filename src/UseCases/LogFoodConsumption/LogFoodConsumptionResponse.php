@@ -14,7 +14,10 @@ use App\Domain\Food\FoodLog;
  *     properties={
  *          @OA\Property(property="id", type="number", format="integer"),
  *          @OA\Property(property="user_id", type="number", format="integer"),
- *          @OA\Property(property="name", type="string", example="Bicep Curl Machine"),
+ *          @OA\Property(property="food", type="object", properties={
+ *              @OA\Property(property="id", type="integer", nullable=false),
+ *              @OA\Property(property="name", type="string", nullable=false)
+ *          }),
  *          @OA\Property(property="date_time", type="string", format="date-time"),
  *          @OA\Property(property="created_at", type="string", format="date-time"),
  *          @OA\Property(property="updated_at", type="string", format="date-time")

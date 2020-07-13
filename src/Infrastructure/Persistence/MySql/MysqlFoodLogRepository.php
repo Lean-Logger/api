@@ -37,11 +37,29 @@ final class MysqlFoodLogRepository extends MySqlAbstractRepository implements Fo
 
         $id = $this->queryBuilder
             ->table(self::TABLE_NAME)
+            ->join('foods', 'foods.id', '=', 'food_logs.food_id')
             ->insertGetId($row)
         ;
 
         $row['id'] = $id;
 
         return $this->factory->createFromDatabaseRow($row);
+    }
+
+    public function findAllForUser(int $userId): array
+    {
+        $rows = $this->queryBuilder
+            ->table(self::TABLE_NAME)
+            ->select(\DB::raw('foods.id as food_id, foods.user_id as food_user_id, foods.name as food_name, foods.created_at as food_created_at, foods.updated_at as food_updated_at'))
+            ->addSelect(\DB::raw('food_logs.*'))
+            ->join('foods', 'foods.id', '=', 'food_logs.food_id')
+            ->where('food_logs.user_id', '=', $userId)
+            ->orderBy('created_at', 'asc')
+            ->get()
+        ;
+
+        $rows = json_decode(json_encode($rows->toArray()), true);
+
+        return $this->factory->createMultipleFromDatabaseRows($rows);
     }
 }

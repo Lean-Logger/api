@@ -12,6 +12,8 @@ class FoodLog
 
     private $foodId;
 
+    private $food;
+
     private $dateTime;
 
     private $createdAt;
@@ -54,6 +56,18 @@ class FoodLog
         return $this;
     }
 
+    public function getFood(): ?Food
+    {
+        return $this->food;
+    }
+
+    public function setFood(Food $food): self
+    {
+        $this->food = $food;
+
+        return $this;
+    }
+
     public function getDateTime(): ?\DateTime
     {
         return $this->dateTime;
@@ -90,10 +104,9 @@ class FoodLog
         return $this;
     }
 
-
     public function toArray(): array
     {
-        return [
+        $array = [
             'id' => $this->getId(),
             'user_id' => $this->getUserId(),
             'food_id' => $this->getFoodId(),
@@ -101,5 +114,11 @@ class FoodLog
             'created_at' => $this->getCreatedAt()->format('Y-m-d H:i:s'),
             'updated_at' => $this->getUpdatedAt()->format('Y-m-d H:i:s'),
         ];
+
+        if ($this->getFood()) {
+            $array['food'] = $this->food->toArray();
+        }
+
+        return $array;
     }
 }

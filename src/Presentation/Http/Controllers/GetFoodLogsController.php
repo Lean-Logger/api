@@ -5,48 +5,42 @@ namespace App\Presentation\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Infrastructure\Validation\ValidationException;
 use App\Presentation\Http\Response\CreatedResponse;
+use App\Presentation\Http\Response\SuccessResponse;
 use App\Presentation\Http\Response\ValidationFailedResponse;
-use App\UseCases\LogFoodConsumption\LogFoodConsumptionRequest;
-use App\UseCases\LogFoodConsumption\LogFoodConsumptionUseCase;
+use App\UseCases\GetFoodLogs\GetFoodLogsRequest;
+use App\UseCases\GetFoodLogs\GetFoodLogsUseCase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * @OA\Post(
+ * @OA\Get(
  *     path="/api/foodlog",
- *     operationId="logFoodConsumption",
- *     summary="Log food consumption",
+ *     operationId="getFoodLogs",
+ *     summary="Get food logs",
  *     tags={"Food Log"},
  *
- *     @OA\RequestBody(
- *      required=true,
- *          @OA\MediaType(
- *              mediaType="application/json",
- *              @OA\Schema(ref="#/components/schemas/LogFoodConsumptionRequest")
- *          )
- *     ),
+ *     @OA\Parameter(in="query", name="date", @OA\Schema(type="string"), required=true),
  *
- *     @OA\Response(response=201, description="Success", @OA\JsonContent(ref="#/components/schemas/LogFoodConsumptionResponse")),
+ *     @OA\Response(response=201, description="Success", @OA\JsonContent(ref="#/components/schemas/GetFoodLogsResponse")),
  *     @OA\Response(response=404, ref="#/components/responses/NotFound"),
  *     @OA\Response(response=422, ref="#/components/responses/BadRequest"),
  *     @OA\Response(response=500, ref="#/components/responses/ServerError")
  * )
  */
-class LogFoodConsumptionController extends Controller
+class GetFoodLogsController extends Controller
 {
     private $useCase;
 
-    public function __construct(LogFoodConsumptionUseCase $useCase)
+    public function __construct(GetFoodLogsUseCase $useCase)
     {
         $this->useCase = $useCase;
     }
 
     final public function execute(Request $request): JsonResponse
     {
-        $request = new LogFoodConsumptionRequest(
+        $request = new GetFoodLogsRequest(
             $request->user()->getId(),
-            $request->get('name'),
-            $request->get('date_time')
+            $request->get('date')
         );
 
         try {
@@ -55,6 +49,6 @@ class LogFoodConsumptionController extends Controller
             return new ValidationFailedResponse($exception->getErrors());
         }
 
-        return new CreatedResponse($response->toArray());
+        return new SuccessResponse($response->toArray());
     }
 }

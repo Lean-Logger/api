@@ -20,6 +20,7 @@ $router->group(['prefix' => 'api', 'namespace' => 'App\Presentation\Http\Control
         $router->delete('exercises/{id}', ['as' => 'delete-exercise-from-library', 'uses' => 'DeleteExerciseFromLibraryController@execute']);
 
         $router->post('foodlog', ['as' => 'log-food-consumption', 'uses' => 'LogFoodConsumptionController@execute']);
+        $router->get('foodlog', ['as' => 'get-food-log', 'uses' => 'GetFoodLogsController@execute']);
 
         $router->post('logout', ['as' => 'logout-user', 'uses' => 'LogoutUserController@execute']);
     });
